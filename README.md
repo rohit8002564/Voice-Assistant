@@ -18,6 +18,4 @@ Before running this project, you need to install the following Python libraries:
 ```bash
 pip install SpeechRecognition pyttsx3 pywhatkit wikipedia
 Additionally, you might need to install PyAudio for SpeechRecognition:
-pip install pipwin
-pipwin install pyaudio
-
+pip install PyAudio

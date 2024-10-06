@@ -11,7 +11,7 @@ This project is a simple voice assistant named "Jarvis," built using Python libr
 - **Web Search**: Jarvis can search for anything on Google. Example: "Jarvis, search [query]."
 - **Friendly Conversations**: Jarvis can answer simple questions like "How are you?" and "What is your name?"
 
-## Key Changes:
+# break
 Breaking the Loop: Each time a command is executed, the loop is broken (break is used). This ensures that the command is executed only once.
 
 For example: If you say "Play [song]", the assistant will play the song, and then the loop will stop, waiting for you to relaunch it for a new command.

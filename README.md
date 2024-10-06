@@ -23,8 +23,11 @@ By using break, you are ensuring that after one command is processed, it doesn't
 
 ## Usage:
 Say "Jarvis, play [song]" → It will play the song and stop.
+
 Say "Jarvis, what time is it?" → It will tell the time and stop.
+
 Say "Jarvis, search for [query]" → It will search and stop.
+
 Say "Jarvis, exit" → It will stop the assistant entirely.
 
 ## Requirements

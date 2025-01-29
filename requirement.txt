@@ -1,0 +1,8 @@
+streamlit
+speechrecognition
+pyttsx3
+pywhatkit
+wikipedia
+pyaudio
+datetime
+requests

@@ -5,67 +5,72 @@ import datetime
 import wikipedia
 import webbrowser
 
-listener = aa.Recognizer()
-machine = pyttsx3.init()
+# Initialize recognizer and text-to-speech engine
+listener = sr.Recognizer()
+engine = pyttsx3.init()
 
+# Function to speak
 def talk(text):
-    machine.say(text)
-    machine.runAndWait()
+    engine.say(text)
+    engine.runAndWait()
 
+# Function to capture voice input
 def input_instruction():
     try:
-        with aa.Microphone() as origin:
+        with sr.Microphone() as source:
             print("Listening...")
-            speech = listener.listen(origin)
-            instruction = listener.recognize_google(speech)
+            listener.adjust_for_ambient_noise(source)
+            audio = listener.listen(source)
+            instruction = listener.recognize_google(audio)
             instruction = instruction.lower()
             if "jarvis" in instruction:
-                instruction = instruction.replace('jarvis', "")
-                print(instruction)
-            return instruction
+                instruction = instruction.replace('jarvis', "").strip()
+                return instruction
     except Exception as e:
         print("Error:", e)
-        return None
+    return None
 
+# Main function to run assistant
 def play_jarvis():
+    talk("Hello! I am Jarvis. How can I help you?")
     while True:
         instruction = input_instruction()
         if instruction:
-            print(instruction)
+            print("User:", instruction)
+
             if "play" in instruction:
-                song = instruction.replace('play', "")
-                talk("playing" + song)
+                song = instruction.replace('play', "").strip()
+                talk("Playing " + song)
                 pywhatkit.playonyt(song)
 
-            elif 'time' in instruction:
+            elif "time" in instruction:
                 time = datetime.datetime.now().strftime('%I:%M %p')
-                talk('The current time is ' + time)
+                talk("The current time is " + time)
 
-            elif 'date' in instruction:
+            elif "date" in instruction:
                 date = datetime.datetime.now().strftime('%d/%m/%Y')
                 talk("Today's date is " + date)
 
-            elif 'how are you' in instruction:
-                talk('I am fine, how about you?')
+            elif "how are you" in instruction:
+                talk("I am fine. How about you?")
 
-            elif 'what is your name' in instruction:
-                talk('I am jarvis, what can I do for you?')
+            elif "what is your name" in instruction:
+                talk("I am Jarvis, your voice assistant.")
 
-            
-            elif 'who is' in instruction:
-                human = instruction.replace('who is', ' ')
-                info = wikipedia.summary(human, 1)
+            elif "who is" in instruction:
+                person = instruction.replace("who is", "").strip()
+                info = wikipedia.summary(person, 1)
                 print(info)
                 talk(info)
 
-            elif 'search' in instruction:
-                query = instruction.replace('search', "")
-                talk("Searching for" + query)
+            elif "search" in instruction:
+                query = instruction.replace("search", "").strip()
+                talk("Searching for " + query)
                 webbrowser.open(f"https://www.google.com/search?q={query}")
 
             else:
-                talk('Please repeat that.')
-    
+                talk("Sorry, I didn't catch that. Please repeat.")
 
-        
-play_jarvis()
+# Run the assistant
+if __name__ == "__main__":
+    play_jarvis()
